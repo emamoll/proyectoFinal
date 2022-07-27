@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon",
-    "start": "npm run build && node dist/index.js -- cluster",
+    "dev": "npm run build && nodemon",
+    "start": "npm run build && node dist/index.js --cluster",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
