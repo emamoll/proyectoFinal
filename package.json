@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "dev": "npm run build && nodemon",
-    "start": "npm run build && node dist/index.js --cluster",
+    "dev:cluster": "npm run build && nodemon  --cluster",
+    "start": "npm run build && node dist/index.js",
+    "start:cluster": "npm run build && node dist/index.js --cluster",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
