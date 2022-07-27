@@ -1,5 +1,5 @@
 import Logger from './services/logger';
-import Config, { PersistenceType } from './config';
+import Config from './config';
 import HTTPServer from './services/server';
 import minimist from 'minimist';
 import cluster from 'cluster';
