@@ -17,5 +17,12 @@ export default {
   PORT: process.env.PORT || 8080,
   PERSISTENCIA: PersistenceType.AtlasMongo,
   MONGO_LOCAL_SRV: process.env.MONGO_LOCAL_SRV || 'mongoLocalsrv',
-  MONGO_ATLAS_SRV: process.env.MONGO_ATLAS_SRV || 'mongosrv'
+  MONGO_ATLAS_SRV: process.env.MONGO_ATLAS_SRV || 'mongosrv',
+  GMAIL_EMAIL: process.env.GMAIL_EMAIL || 'email@gmail.com',
+  GMAIL_PASSWORD: process.env.GMAIL_PASSWORD || 'password',
+  GMAIL_NAME: process.env.GMAIL_NAME || 'Nombre Apellido',
+  TWILIO_ACCOUNT_ID: process.env.TWILIO_ACCOUNT_ID || 'twilioId',
+  TWILIO_TOKEN: process.env.TWILIO_TOKEN || 'twilioToken',
+  TWILIO_WPP_CELLPHONE: process.env.TWILIO_WPP_CELLPHONE || '123456789',
+  ADMIN_PHONE: process.env.ADMIN_PHONE || '+549351000000',
 }
