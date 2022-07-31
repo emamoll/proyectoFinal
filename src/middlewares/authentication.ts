@@ -17,6 +17,7 @@ const signup: VerifyFunctionWithRequest = async (req: Request, email: string, pa
     const user = { email, password, confirmPassword, firstName, lastName, admin, cellphone, country, city, street };
     const userEmail = await userAPI.getUserByEmail(email);
 
+    // Compruebo que el email no exista
     if (userEmail) {
       Logger.error('Ya existe una cuenta con ese email');
       Logger.info(userEmail);
@@ -24,18 +25,21 @@ const signup: VerifyFunctionWithRequest = async (req: Request, email: string, pa
       return done(null, false, { message: 'Ya existe una cuenta con ese email' });
     };
 
+    // Pido que se completen todos los campos
     if (!email || !password || !confirmPassword || !firstName || !lastName || !cellphone || !country || !city || !street) {
       Logger.error('Campos invalidos');
 
       return done(null, false, { msg: 'Campos invalidos' })
     };
 
+    // Comparo la contrasenia con la confirmacion de contrasenia
     if (password !== confirmPassword) {
       Logger.error('Las contrasenias no coinciden');
 
       return done (null, false, {msg: 'Las contrasenias no coinciden'});
     }
 
+    // Si pasa todos los middlewares anteriores creo el usuario
     const newUser = await userAPI.createUser(user);
 
     Logger.info('Nuevo usuario creado');
@@ -63,6 +67,5 @@ passport.deserializeUser((email: string, done) => {
     return done(null, user);
   })
 })
-
 
 export default passport;

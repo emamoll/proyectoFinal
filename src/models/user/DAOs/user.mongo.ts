@@ -11,6 +11,7 @@ export default class UserDAO {
 
   constructor() { };
 
+  // Creo instancia de conexion a mongo
   static async getInstance() {
     if (!UserDAO.instance) {
       Logger.info('Inicializamos DAO User con Mongo Atlas');
@@ -21,6 +22,7 @@ export default class UserDAO {
     return UserDAO.instance
   };
 
+  // Creo el usuario
   async create(data: UserI): Promise<UserI> {
     try {
       const newUser = new this.user(data);
@@ -32,6 +34,7 @@ export default class UserDAO {
     }
   }
 
+  // Busco el usuario por su email
   async getUserByEmail(email: string) {
     try {
       const response = await this.user.findOne({ email });
@@ -41,15 +44,4 @@ export default class UserDAO {
       throw new Error(`Error: ${error.message}`);
     }
   }
-
-  async getUserOnly(query: {}) {
-    try {
-      const response = await this.user.findOne({ query });
-      return response;
-    } catch (error: any) {
-      Logger.info('Error al buscar el usuario');
-      throw new Error(`Error: ${error.message}`);
-    }
-  }
-
 }

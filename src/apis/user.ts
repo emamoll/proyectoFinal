@@ -8,15 +8,18 @@ class UserAPI {
   user;
 
   constructor() {
+    // Instancia de conexion a mongoDB
     this.user = UserFactoryDAO.get(Config.PERSISTENCIA);
     MongoDBClient.getConnection();
   };
 
+  // Funcion para crear usuario
   async createUser(userData: UserI) {
     const newUser = await this.user.create(userData);
     return newUser;
   };
 
+  // Funcion para buscar usuario segun su email
   async getUserByEmail(email: string) {
     return this.user.getUserByEmail(email)
   };

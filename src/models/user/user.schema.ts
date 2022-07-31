@@ -4,8 +4,10 @@ import bcrypt from 'bcrypt'
 
 const Schema = mongoose.Schema;
 
+// Nombre de la coleccion
 export const UserCollectionName = 'users';
 
+// Esquema de Joi
 export const UserJoiSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().required(),
@@ -20,6 +22,7 @@ export const UserJoiSchema = Joi.object({
   }
 });
 
+// Esquema de mongo
 const UserSchema = new Schema(
   {
     email: { type: String, required: true },
@@ -35,6 +38,7 @@ const UserSchema = new Schema(
   { versionKey: false }
 );
 
+// Encripto la contrasenia
 UserSchema.pre('save', async function (next) {
   const user = this;
   const hash = await bcrypt.hash(user.password, 10);
@@ -43,6 +47,7 @@ UserSchema.pre('save', async function (next) {
   next();
 });
 
+// Comparo la contrasenia con la contrasenia encriptada
 UserSchema.methods.isValidPassword = async function (password: string) {
   const user = this;
   const compare = await bcrypt.compare(password, user.password);

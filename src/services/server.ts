@@ -14,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Error handler
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   Logger.error(`Hubo un error ${err.message}`);
 
@@ -31,6 +32,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 app.use(errorHandler);
 
+// Opciones de la sesion
 const hora = 1000 * 60 * 600
 const StoreOptions = {
   store: MongoStore.create({
@@ -53,8 +55,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use('signup', signUpFunc);
 
+// Routes
 app.use('/api', mainRouter);
 
+// Respuesta por defaul
 app.use((req, res) => {
   res.status(404).json({
     msg: 'La ruta no existe'
