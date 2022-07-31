@@ -41,4 +41,15 @@ export default class UserDAO {
       throw new Error(`Error: ${error.message}`);
     }
   }
+
+  async getUserOnly(query: {}) {
+    try {
+      const response = await this.user.findOne({ query });
+      return response;
+    } catch (error: any) {
+      Logger.info('Error al buscar el usuario');
+      throw new Error(`Error: ${error.message}`);
+    }
+  }
+
 }

@@ -13,16 +13,41 @@ const strategyOptions: IStrategyOptionsWithRequest = {
 
 const signup: VerifyFunctionWithRequest = async (req: Request, email: string, password: string, done: any) => {
   try {
-    const { email, password, firstName, lastName, admin, cellphone, country, city, street } = req.body;
-    const user = { email, password, firstName, lastName, admin, cellphone, country, city, street };
+    const { email, password, confirmPassword, firstName, lastName, admin, cellphone, country, city, street } = req.body;
+    const user = { email, password, confirmPassword, firstName, lastName, admin, cellphone, country, city, street };
+    const userEmail = await userAPI.getUserByEmail(email);
+
+    if (userEmail) {
+      Logger.error('Ya existe una cuenta con ese email');
+      Logger.info(userEmail);
+
+      return done(null, false, { message: 'Ya existe una cuenta con ese email' });
+    };
+
+    if (!email || !password || !confirmPassword || !firstName || !lastName || !cellphone || !country || !city || !street) {
+      Logger.error('Campos invalidos');
+
+      return done(null, false, { msg: 'Campos invalidos' })
+    };
+
+    if (password !== confirmPassword) {
+      Logger.error('Las contrasenias no coinciden');
+
+      return done (null, false, {msg: 'Las contrasenias no coinciden'});
+    }
+
     const newUser = await userAPI.createUser(user);
+
     Logger.info('Nuevo usuario creado');
     Logger.info(newUser);
-    notifyNewUserByEmail(newUser)
+
+    notifyNewUserByEmail(newUser);
+
     return done(null, newUser);
   } catch (error: any) {
     Logger.error('Error al crear el usuario');
     Logger.error(error);
+
     return done(null, false, { message: error.message });
   };
 };
