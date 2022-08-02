@@ -5,7 +5,7 @@ import mainRouter from '../routes';
 import passport from 'passport';
 import session from 'express-session';
 import { ErrorRequestHandler } from 'express';
-import { signUpFunc } from '../middlewares/authentication';
+import { loginFunc, signUpFunc } from '../middlewares/authentication';
 import MongoStore from 'connect-mongo';
 import Config from '../config';
 import cookieParser from 'cookie-parser';
@@ -53,17 +53,18 @@ app.use(cookieParser());
 app.use(session(StoreOptions));
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use('login', loginFunc)
 passport.use('signup', signUpFunc);
 
 // Routes
 app.use('/api', mainRouter);
 
-// Respuesta por defaul
+// Respuesta por default
 app.use((req, res) => {
   res.status(404).json({
     msg: 'La ruta no existe'
-  })
-})
+  });
+});
 
 const HTTPServer = http.createServer(app);
 

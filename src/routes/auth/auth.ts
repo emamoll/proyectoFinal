@@ -1,28 +1,29 @@
 import { Router } from "express";
 import passportLocal from '../../middlewares/authentication';
-import { userController } from '../../controllers/user';
-import { rmSync } from "fs";
+import { authController } from '../../controllers/auth';
+import asyncHandler from 'express-async-handler';
 
 const router = Router();
 
 // Routes de login del usuario
-router.get('/', (req, res) => {
-  res.json({ msg: 'Hola emanuel' })
-});
+router.get('/login', asyncHandler(authController.getLogin));
+
+router.post('/login', passportLocal.authenticate('login'), asyncHandler(authController.postLogin));
 
 // Routes de signup del usuario
-router.get('/signup', (req, res) => {
-  res.json({
-    msg: 'Complete todos los campos para registrarse'
-  })
-})
+router.get('/signup', asyncHandler(authController.getSignup));
 
-router.post('/signup', userController.userExists, userController.incompleteData, userController.passwordConfirmed, passportLocal.authenticate('signup'), (req, res) => {
-  return res.status(200).json({
-    msg: 'Usuario creado',
+router.post('/signup', authController.userExists, authController.incompleteData, authController.userLegal, authController.passwordConfirmed, passportLocal.authenticate('signup'), asyncHandler(authController.postSignup));
 
-  })
-})
+// Route de logout
+router.get('/logout', authController.logout);
+
+// Respuesta por default
+router.use((req, res) => {
+  res.status(404).json({
+    msg: 'La ruta no existe'
+  });
+});
 
 
 export default router

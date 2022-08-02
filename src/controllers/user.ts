@@ -2,35 +2,66 @@ import { Request, Response, NextFunction } from "express";
 import { userAPI } from '../apis/user';
 
 class UserController {
-  // Funcion para comprobar que el mail para registrarse no exista
-  async userExists(req: Request, res: Response, next: NextFunction) {
-    const user = await userAPI.getUserByEmail(req.body.email);
-
-    if (user)
-      return res.status(401).json({ msg: 'Ya existe una cuenta con ese email' });
-
-    next();
-  }
-
-  // Funcion para solicitar que se completen todos los campos para registrarse
-  async incompleteData(req: Request, res: Response, next: NextFunction) {
-    const { email, password, confirmPassword, firstName, lastName, admin, cellphone, country, city, street } = req.body;
-
-    if (!email || !password || !confirmPassword || !firstName || !lastName || !cellphone || !country || !city || !street)
-      return res.status(401).json({ msg: 'Campos invalidos' });
-
-    next();
+  // Funcion para mostrar todos los usuarios
+  async getUsers(req: Request, res: Response) {
+    res.json({
+      usuarios: await userAPI.getUsers()
+    });
   };
 
-  // Funcion para comprobar que las contrasenias que se ingresan son iguales
-  async passwordConfirmed(req: Request, res: Response, next: NextFunction) {
-    const { password, confirmPassword } = req.body;
+  // Funcion para mostrar un usuario segun su id
+  async getUserById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const userId = await userAPI.getUserById(id);
 
-    if (password !== confirmPassword)
-      return res.status(401).json({ msg: 'Las contrasenias no coinciden' });
+      res.json({
+        data: userId
+      });
+    } catch (error) {
+      res.status(404).json({
+        msg: 'No existe ningun usuario con ese id'
+      });
+    };
+  };
 
-    next();
-  }
-}
+  // Funcion para editar un usuario segun su id
+  async updateUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id;
+      const updateUser = await userAPI.updateUser(id, req.body);
+
+      res.json({
+        msg: 'Usuario actualizado',
+        data: updateUser
+      });
+    } catch (error) {
+      res.status(404).json({
+        msg: 'No existe ningun usuario con ese id'
+      });
+
+      next()
+    }
+  };
+
+  // Funcion para borrar un usuario segun su id
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      await userAPI.deleteUser(id);
+
+      res.json({
+        msg: 'Usuario eliminado'
+      });
+    } catch (error) {
+      res.status(404).json({
+        msg: 'No existe ningun usuario con ese id'
+      });
+
+      next();
+    }
+  };
+};
 
 export const userController = new UserController();

@@ -4,6 +4,7 @@ export interface UserI {
   password: string
   firstName: string
   lastName: string
+  age: number
   admin: boolean
   cellphone: number
   country: string
@@ -17,6 +18,7 @@ export class UserDTO {
   password: string
   firstName: string
   lastName: string
+  age: number
   admin: boolean
   cellphone: number
   country: string
@@ -29,6 +31,7 @@ export class UserDTO {
     this.password = data.password;
     this.firstName = data.firstName;
     this.lastName = data.lastName;
+    this.age = data.age;
     this.admin = data.admin;
     this.cellphone = data.cellphone;
     this.country = data.country;
@@ -38,6 +41,10 @@ export class UserDTO {
 };
 
 export interface UserBaseClass {
-  create(data: UserI): Promise<UserDTO>;
+  createUser(data: UserI): Promise<UserDTO>;
+  getUsers([]): Promise<[]>;
   getUserByEmail(email: string): Promise<UserDTO>;
+  getUserById(id: string): Promise<UserDTO>;
+  updateUser(id: string, newData: UserI): Promise<UserDTO>;
+  deleteUser(id: string): any;
 }

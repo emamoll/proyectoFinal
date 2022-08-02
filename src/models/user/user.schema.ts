@@ -13,13 +13,12 @@ export const UserJoiSchema = Joi.object({
   password: Joi.string().required(),
   firsName: Joi.string().required(),
   lastName: Joi.string().required(),
+  age: Joi.number().required(),
   admin: Joi.string(),
   cellphone: Joi.number().required(),
-  address: {
-    country: Joi.string().required(),
-    city: Joi.string().required(),
-    street: Joi.string().required()
-  }
+  country: Joi.string().required(),
+  city: Joi.string().required(),
+  street: Joi.string().required()
 });
 
 // Esquema de mongo
@@ -29,6 +28,7 @@ const UserSchema = new Schema(
     password: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    age: { type: Number, required: true },
     admin: { type: Boolean, default: false },
     cellphone: { type: Number, required: true },
     country: { type: String, required: true },
