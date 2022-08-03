@@ -10,6 +10,7 @@ export interface UserI {
   country: string
   city: string
   street: string
+  timestamp: string
 };
 
 export class UserDTO {
@@ -24,6 +25,7 @@ export class UserDTO {
   country: string
   city: string
   street: string
+  timestamp: string
 
   constructor(data: UserI) {
     this.id = data._id || '';
@@ -37,6 +39,7 @@ export class UserDTO {
     this.country = data.country;
     this.city = data.city;
     this.street = data.street;
+    this.timestamp = data.timestamp;
   }
 };
 

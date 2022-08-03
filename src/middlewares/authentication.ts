@@ -32,8 +32,8 @@ const login: VerifyFunctionWithRequest = async (req: Request, email: string, pas
 // Funcion de signup
 const signup: VerifyFunctionWithRequest = async (req: Request, email: string, password: string, done: any) => {
   try {
-    const { email, password, confirmPassword, firstName, lastName, age, admin, cellphone, country, city, street } = req.body;
-    const user = { email, password, confirmPassword, firstName, lastName, age, admin, cellphone, country, city, street };
+    const { email, password, confirmPassword, firstName, lastName, age, admin, cellphone, country, city, street, timestamp } = req.body;
+    const user = { email, password, confirmPassword, firstName, lastName, age, admin, cellphone, country, city, street, timestamp };
     const userEmail = await userAPI.getUserByEmail(email);
 
     // Compruebo que el email no exista
