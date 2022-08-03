@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import Joi, { boolean } from "joi";
+import Joi from "joi";
 import bcrypt from 'bcrypt'
+import moment from "moment";
 
 const Schema = mongoose.Schema;
 
@@ -18,13 +19,14 @@ export const UserJoiSchema = Joi.object({
   cellphone: Joi.number().required(),
   country: Joi.string().required(),
   city: Joi.string().required(),
-  street: Joi.string().required()
+  street: Joi.string().required(),
+  timestamp: Joi.string()
 });
 
 // Esquema de mongo
 const UserSchema = new Schema(
   {
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
@@ -33,7 +35,8 @@ const UserSchema = new Schema(
     cellphone: { type: Number, required: true },
     country: { type: String, required: true },
     city: { type: String, required: true },
-    street: { type: String, required: true }
+    street: { type: String, required: true },
+    timestamp: { type: String, default: moment().format('DD-MMM-YYYY HH:mm:ss') },
   },
   { versionKey: false }
 );
