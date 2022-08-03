@@ -13,8 +13,8 @@ class ProductAPI {
   };
 
   // Funcion para crear un producto
-  async createProduc(userData: ProductI) {
-    const newUser = await this.product.createProduc(userData);
+  async createProduct(userData: ProductI) {
+    const newUser = await this.product.createProduct(userData);
     return newUser;
   };
 

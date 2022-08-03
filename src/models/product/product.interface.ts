@@ -2,7 +2,7 @@ export interface ProductI {
   _id?: object
   name: string
   desription: string
-  category: string
+  categoryId: object
   price: number
   meassure: string
   stock: number
@@ -14,7 +14,7 @@ export class ProductDTO {
   id: {}
   name: string
   desription: string
-  category: string
+  categoryId: object
   price: number
   meassure: string
   stock: number
@@ -25,7 +25,7 @@ export class ProductDTO {
     this.id = data._id || '';
     this.name = data.name;
     this.desription = data.desription;
-    this.category = data.category;
+    this.categoryId = data.categoryId;
     this.price = data.price;
     this.meassure = data.meassure;
     this.stock = data.stock;

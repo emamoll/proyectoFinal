@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Joi from "joi";
 import moment from "moment";
+import { CategoryCollectionName } from "../category/category.schema";
 
 const Schema = mongoose.Schema;
 
@@ -11,7 +12,7 @@ export const ProductCollectionName = 'products';
 export const ProductJoiSchema = Joi.object({
   name: Joi.string().required(),
   desription: Joi.string().required(),
-  category: Joi.string().required(),
+  category: Joi.object().required(),
   price: Joi.number().required(),
   meassure: Joi.string().required(),
   stock: Joi.number().required(),
@@ -24,7 +25,11 @@ const ProductSchema = new Schema(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    category: { type: String, required: true },
+    categoryId: {
+      type: Schema.Types.ObjectId,
+      ref: CategoryCollectionName,
+      required: true,
+    },
     price: { type: Number, required: true },
     meassure: { type: String, required: true },
     stock: { type: Number, required: true },
