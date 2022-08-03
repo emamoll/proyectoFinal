@@ -6,7 +6,7 @@ export class UserFactoryDAO {
   static get(tipo: string) {
     switch (tipo) {
       case PersistenceType.AtlasMongo:
-        Logger.info('Retornando instancia clase Mongo Atlas');
+        Logger.info('Retornando instancia clase User Mongo Atlas');
         return new UserDAO();
       default:
         Logger.info('Retornando por defecto instancia clase Mongo Atlas');

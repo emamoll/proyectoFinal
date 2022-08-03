@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { productAPI } from "../apis/product";;
+import { productAPI } from "../apis/product";
 
 class ProductController {
   // Funcion para mostrar todos los productos
@@ -22,6 +22,8 @@ class ProductController {
       res.status(404).json({
         msg: 'No existe ningun producto con ese id'
       });
+
+      next()
     };
   };
 

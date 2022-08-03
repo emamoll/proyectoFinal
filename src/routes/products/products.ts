@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { productController } from "../../controllers/product";
 import asyncHandler from 'express-async-handler';
+import { isAdmin } from "../../middlewares/authorization";
 
 const router = Router();
 
@@ -11,9 +12,9 @@ router.get('/', asyncHandler(productController.getProducts));
 router.get('/:id', asyncHandler(productController.getProductById));
 
 // Route para editar un producto por su id
-router.put('/:id', asyncHandler(productController.updateProduct));
+router.put('/:id', isAdmin, asyncHandler(productController.updateProduct));
 
 // Route para eliminar un producto por su id
-router.delete('/:id', asyncHandler(productController.deleteProduct));
+router.delete('/:id', isAdmin, asyncHandler(productController.deleteProduct));
 
 export default router;

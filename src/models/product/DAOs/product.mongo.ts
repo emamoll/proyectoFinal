@@ -13,7 +13,7 @@ export default class ProductDAO {
   // Creo instancia de conexion a mongo
   static async getInstance() {
     if (!ProductDAO.instance) {
-      Logger.info('Inicializamos DAO Produc con Mongo Atlas');
+      Logger.info('Inicializamos DAO Product con Mongo Atlas');
       await MongoDBClient.getConnection();
       ProductDAO.instance = new ProductDAO();
       ProductDAO.client = await MongoDBClient.getConnection();
@@ -27,7 +27,7 @@ export default class ProductDAO {
   };
 
   // Creo el producto
-  async createProduc(data: ProductI) {
+  async createProduct(data: ProductI) {
     try {
       const newProduct = new this.product(data);
       await newProduct.save();
@@ -81,4 +81,4 @@ export default class ProductDAO {
         throw new Error(`Error al eliminar el producto: ${error.message}`);
       };
     };
-}
+};
