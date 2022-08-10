@@ -16,4 +16,11 @@ router.put('/:id', asyncHandler(userController.updateUser));
 // Route para eliminar un usuario por su id
 router.delete('/:id', asyncHandler(userController.deleteUser));
 
+// Respuesta por default
+router.use((req, res) => {
+  res.status(404).json({
+    msg: 'La ruta no existe'
+  });
+});
+
 export default router

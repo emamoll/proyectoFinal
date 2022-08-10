@@ -28,11 +28,6 @@ class CategoryAPI {
     return this.category.getCategoryById(id);
   };
 
-  // Funcion para buscar una categoria segun su nombre
-  async getCategoryByName(name: string) {
-    return this.category.getCategoryByName(name);
-  };
-
   // Funcion para editar una categoria
   async updateCategory(id: string, newData: CategoryI) {
     return this.category.updateCategory(id, newData);

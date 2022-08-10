@@ -5,22 +5,26 @@ import { isAdmin } from "../../middlewares/authorization";
 
 const router = Router();
 
-// Route para agregar categoria
-router.post('/createCategory', isAdmin, asyncHandler(categoryController.createCategory));
-
 // Route de inicio para mostrar todos los productos
 router.get('/', asyncHandler(categoryController.getCategories));
 
-// Route para mostrar un producto por su id
+// Route para agregar una categoria
+router.post('/createCategory', isAdmin, asyncHandler(categoryController.createCategory));
+
+// Route para mostrar una categoria por su id
 router.get('/:id', asyncHandler(categoryController.getCategoryById));
 
-// Route para mostrar un producto por su nombre
-router.get('/:name', asyncHandler(categoryController.getCategoryByName));
-
-// Route para editar un producto por su id
+// Route para editar una categoria por su id
 router.put('/:id', isAdmin, asyncHandler(categoryController.updateCategory));
 
-// Route para eliminar un producto por su id
+// Route para eliminar una categoria por su id
 router.delete('/:id', isAdmin, asyncHandler(categoryController.deleteCategory));
+
+// Respuesta por default
+router.use((req, res) => {
+  res.status(404).json({
+    msg: 'La ruta no existe'
+  });
+});
 
 export default router;

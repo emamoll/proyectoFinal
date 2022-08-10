@@ -14,7 +14,7 @@ router.use('/auth', AuthRouter);
 router.use('/users', isLoggedIn, isAdmin, UsersRouter);
 
 // Routes de productos
-// router.use('/products', ProductsRouter);
+router.use('/products', ProductsRouter);
 
 // Routes de productos
 router.use('/categories', CategoriesRouter);

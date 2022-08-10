@@ -4,7 +4,7 @@ import { userAPI } from '../apis/user';
 class UserController {
   // Funcion para mostrar todos los usuarios
   async getUsers(req: Request, res: Response) {
-    res.json({
+    res.status(200).json({
       usuarios: await userAPI.getUsers()
     });
   };
@@ -15,7 +15,7 @@ class UserController {
       const { id } = req.params;
       const userId = await userAPI.getUserById(id);
 
-      res.json({
+      res.status(200).json({
         data: userId
       });
     } catch (error) {
@@ -31,7 +31,7 @@ class UserController {
       const id = req.params.id;
       const updateUser = await userAPI.updateUser(id, req.body);
 
-      res.json({
+      res.status(200).json({
         msg: 'Usuario actualizado',
         data: updateUser
       });
@@ -51,7 +51,7 @@ class UserController {
 
       await userAPI.deleteUser(id);
 
-      res.json({
+      res.status(200).json({
         msg: 'Usuario eliminado'
       });
     } catch (error) {

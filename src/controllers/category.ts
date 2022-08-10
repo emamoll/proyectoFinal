@@ -22,7 +22,7 @@ class CategoryController {
 
   // Funcion para mostrar todas las categorias
   async getCategories(req: Request, res: Response) {
-    res.json({
+    res.status(200).json({
       categorias: await categoryAPI.getCategories()
     });
   };
@@ -33,26 +33,8 @@ class CategoryController {
       const { id } = req.params;
       const categoryId = await categoryAPI.getCategoryById(id);
 
-      res.json({
+      res.status(200).json({
         data: categoryId
-      });
-    } catch (error) {
-      res.status(404).json({
-        msg: 'No existe ninguna categoria con ese id'
-      });
-
-      next()
-    };
-  };
-
-  // Funcion para mostrar una categoria segun su nombre
-  async getCategoryByName(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { name } = req.params;
-      const categoryName = await categoryAPI.getCategoryByName(name);
-
-      res.json({
-        data: categoryName
       });
     } catch (error) {
       res.status(404).json({
@@ -69,7 +51,7 @@ class CategoryController {
       const id = req.params.id;
       const updateCategory = await categoryAPI.updateCategory(id, req.body);
 
-      res.json({
+      res.status(200).json({
         msg: 'Categoria actualizada',
         data: updateCategory
       });
@@ -89,7 +71,7 @@ class CategoryController {
 
       await categoryAPI.deleteCategory(id);
 
-      res.json({
+      res.status(200).json({
         msg: 'Categoria eliminada'
       });
     } catch (error) {

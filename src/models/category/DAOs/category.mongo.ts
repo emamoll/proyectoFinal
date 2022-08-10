@@ -60,17 +60,6 @@ export default class CategoryDAO {
     };
   };
 
-  // Busco la categoria por su nombre
-  async getCategoryByName(name: string) {
-    try {
-      const response = await this.category.findOne({ name });
-      return response;
-    } catch (error: any) {
-      Logger.error('Error al buscar la categoria por su nombre');
-      throw new Error(`Error al buscar la categoria: ${error.message}`);
-    };
-  }
-
   // Edito la categoria
   async updateCategory(id: string, newData: CategoryI) {
     try {

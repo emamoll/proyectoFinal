@@ -20,7 +20,6 @@ export interface CategoryBaseClass {
   createCategory(data: CategoryI): Promise<CategoryDTO>;
   getCategories([]): Promise<[]>;
   getCategoryById(id: string): Promise<CategoryDTO>;
-  getCategoryByName(name: string): Promise<CategoryDTO>;
   updateCategory(id: string, newData: CategoryI): Promise<CategoryDTO>;
   deleteCategory(id: string): Promise<CategoryDTO>;
 }

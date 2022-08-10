@@ -42,9 +42,9 @@ class AuthController {
 
   // Funcion para solicitar que se completen todos los campos para registrarse
   async incompleteData(req: Request, res: Response, next: NextFunction) {
-    const { email, password, confirmPassword, firstName, lastName, admin, cellphone, country, city, street } = req.body;
+    const { email, password, confirmPassword, firstName, lastName, age,  admin, cellphone, country, city, street } = req.body;
 
-    if (!email || !password || !confirmPassword || !firstName || !lastName || !cellphone || !country || !city || !street)
+    if (!email || !password || !confirmPassword || !firstName || !lastName || !age || !cellphone || !country || !city || !street)
       return res.status(401).json({ msg: 'Campos incompletos' });
 
     next();
