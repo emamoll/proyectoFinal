@@ -25,4 +25,6 @@ export default {
   TWILIO_TOKEN: process.env.TWILIO_TOKEN || 'twilioToken',
   TWILIO_WPP_CELLPHONE: process.env.TWILIO_WPP_CELLPHONE || '123456789',
   ADMIN_PHONE: process.env.ADMIN_PHONE || '+549351000000',
+  TOKEN_SECRET_KEY: process.env.TOKEN_SECRET_KEY || 'mySecretTokenKey',
+  TOKEN_KEEP_ALIVE: process.env.TOKEN_KEEP_ALIVE || '15m'
 }

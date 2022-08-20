@@ -1,5 +1,5 @@
 export interface UserI {
-  _id?: object
+  _id?: string
   email: string
   password: string
   firstName: string
@@ -7,14 +7,12 @@ export interface UserI {
   age: number
   admin: boolean
   cellphone: number
-  country: string
-  city: string
-  street: string
+  address: object
   timestamp: string
 };
 
 export class UserDTO {
-  id: {}
+  id?: string
   email: string
   password: string
   firstName: string
@@ -22,9 +20,7 @@ export class UserDTO {
   age: number
   admin: boolean
   cellphone: number
-  country: string
-  city: string
-  street: string
+  address: object
   timestamp: string
 
   constructor(data: UserI) {
@@ -36,18 +32,19 @@ export class UserDTO {
     this.age = data.age;
     this.admin = data.admin;
     this.cellphone = data.cellphone;
-    this.country = data.country;
-    this.city = data.city;
-    this.street = data.street;
+    this.address = data.address;
     this.timestamp = data.timestamp;
   }
 };
 
+export interface UserQueryI {
+  email?: string
+}
+
 export interface UserBaseClass {
-  createUser(data: UserI): Promise<UserDTO>;
-  getUsers([]): Promise<[]>;
-  getUserByEmail(email: string): Promise<UserDTO>;
+  login(data: UserDTO): Promise<UserDTO>;
+  signup(data: UserDTO): Promise<UserDTO>;
+  getUsers([]): Promise<UserDTO[]>;
   getUserById(id: string): Promise<UserDTO>;
-  updateUser(id: string, newData: UserI): Promise<UserDTO>;
-  deleteUser(id: string): any;
+  deleteUser(id: string): Promise<any>;
 }
