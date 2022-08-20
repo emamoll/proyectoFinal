@@ -2,15 +2,12 @@ import express from 'express';
 import * as http from 'http';
 import Logger from './logger';
 import mainRouter from '../routes';
-import passport from 'passport';
-import session from 'express-session';
+import compression from 'compression';
+import cors from 'cors';
 import { ErrorRequestHandler } from 'express';
-import { loginFunc, signUpFunc } from '../middlewares/authentication';
-import MongoStore from 'connect-mongo';
-import Config from '../config';
-import cookieParser from 'cookie-parser';
 
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -28,33 +25,15 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     msg,
     stack
   })
-}
+};
 
 app.use(errorHandler);
 
-// Opciones de la sesion
-const hora = 1000 * 60 * 600
-const StoreOptions = {
-  store: MongoStore.create({
-    mongoUrl: Config.MONGO_ATLAS_SRV,
-    crypto: {
-      secret: 'shhh'
-    }
-  }),
-  secret: 'shhh',
-  resave: false,
-  saveUninitialized: false,
-  rolling: true,
-  cookie: {
-    maxAge: hora
-  }
-}
-app.use(cookieParser());
-app.use(session(StoreOptions));
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use('login', loginFunc)
-passport.use('signup', signUpFunc);
+// Configura el uso de compresion
+app.use(compression());
+
+// Configura el uso de cors
+app.use(cors());
 
 // Routes
 app.use('/api', mainRouter);

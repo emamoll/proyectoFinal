@@ -63,7 +63,7 @@
     },
     "include": [
         "./src/**/*"
-    ],
+, "src/controllers/.ts"    ],
     "exclude": [
         "node_modules"
     ]

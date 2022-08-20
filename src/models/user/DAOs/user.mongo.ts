@@ -1,14 +1,15 @@
 import { UserModel } from "../user.schema";
 import { MongoDBClient } from "../../../services/mongodb";
-import { UserI } from "../user.interface";
+import { UserBaseClass, UserI } from "../user.interface";
 import { UserDTO } from "../user.interface";
 import Logger from "../../../services/logger";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
+import moment from 'moment';
 
-export default class UserDAO {
+export default class UserDAO implements UserBaseClass {
   private static instance: UserDAO;
   private static client: MongoDBClient;
-  user = UserModel;
+  user: any = UserModel;
 
   constructor() { };
 
@@ -16,7 +17,9 @@ export default class UserDAO {
   static async getInstance() {
     if (!UserDAO.instance) {
       Logger.info('Inicializamos DAO User con Mongo Atlas');
+
       await MongoDBClient.getConnection();
+
       UserDAO.instance = new UserDAO();
       UserDAO.client = await MongoDBClient.getConnection()
     };
@@ -28,22 +31,62 @@ export default class UserDAO {
     return UserDAO.client.isValid(id)
   }
 
-  // Creo el usuario
-  async createUser(data: UserI) {
-    try {
-      const newUser = new this.user(data);
-      await newUser.save();
-      return newUser;
-    } catch (error: any) {
-      Logger.error('Error al crear el usuario');
-      throw new Error(`Error: ${error.message}`);
-    };
+  // Query de usuarios
+  async query(query: any): Promise<UserDTO> {
+    const response = await this.user.find(query);
+
+    return response[0];
   };
 
+  // Logueo de usuarios
+  async login(data: UserDTO): Promise<UserDTO> {
+    try {
+      const user = data.email;
+      const response = await this.user.findOne({ user });
+
+      if (!response) throw new Error('El usuario no existe');
+
+      return response;
+    } catch (error: any) {
+      Logger.error('Error al loguear el usuario');
+      throw new Error(`Error al loguear el usuario: ${error.message}`);
+    };
+  }
+
+  // Registro de usuarios
+  async signup(data: UserDTO): Promise<UserDTO> {
+    try {
+      const addUser: UserDTO = {
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        age: data.age,
+        admin: false,
+        cellphone: data.cellphone,
+        address: data.address,
+        timestamp: moment().format('DD-MMM-YYYY HH:mm:ss')
+      };
+
+      const newUser = new this.user(addUser);
+
+      Logger.info(`Nuevo usuario: ${newUser}`);
+
+      await newUser.save();
+
+      return newUser;
+    } catch (error: any) {
+      Logger.error('Error al registrar el usuario');
+      throw new Error(`Error al registrar el usuario: ${error.message}`);
+    };
+  }
+
+
   // Busco todos los usuarios
-  async getUsers() {
+  async getUsers(): Promise<UserDTO[]> {
     try {
       const response = await this.user.find();
+
       return response;
     } catch (error: any) {
       Logger.error('Error al buscar todos los usuarios');
@@ -51,21 +94,13 @@ export default class UserDAO {
     };
   };
 
-  // Busco el usuario por su email
-  async getUserByEmail(email: string) {
-    try {
-      const response = await this.user.findOne({ email });
-      return response;
-    } catch (error: any) {
-      Logger.error('Error al buscar el usuario por se email');
-      throw new Error(`Error al buscar el usuario: ${error.message}`);
-    };
-  };
-
   // Busco el usuario por su id
-  async getUserById(id: string) {
+  async getUserById(id: string): Promise<UserDTO> {
     try {
       const response = await this.user.findById(id);
+
+      if(!response) throw new Error('El usuario no existe');
+      
       return response;
     } catch (error: any) {
       Logger.error('Error al buscar el usuario por su id');
@@ -73,19 +108,8 @@ export default class UserDAO {
     };
   };
 
-  // Edito el usuario
-  async updateUser(id: string, newData: UserI) {
-    try {
-      const response = await this.user.findByIdAndUpdate(id, newData);
-      return response;
-    } catch (error: any) {
-      Logger.error('Error al editar el usuario');
-      throw new Error(`Error al editar el usuario: ${error.message}`);
-    };
-  };
-
   // Elimino el usuario {
-  async deleteUser(id: string) {
+  async deleteUser(id: string): Promise<any> {
     try {
       const response = await this.user.findByIdAndDelete(id);
       return response;
@@ -96,8 +120,9 @@ export default class UserDAO {
   };
 
   // Valido la contrasenia
-  async validatePassword(user: UserI, password: string) {
-    const response = await this.user.findOne({ email: user.email });
+  async validatePassword(user: UserI, password: string): Promise<boolean>  {
+    const emailUser = user.email
+    const response = await this.user.findOne({ email: emailUser });
 
     if (!response)
       return false;

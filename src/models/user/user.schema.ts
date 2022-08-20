@@ -8,18 +8,26 @@ const Schema = mongoose.Schema;
 // Nombre de la coleccion
 export const UserCollectionName = 'users';
 
+// Esquema de Joi de la Direccion del usuario
+export const AddressJoiSchema = Joi.object({
+  country: Joi.string().required(),
+  city: Joi.string().required(),
+  street: Joi.string().required(),
+  number: Joi.number().required(),
+  postalCode: Joi.number().required(),
+})
+
 // Esquema de Joi
 export const UserJoiSchema = Joi.object({
   email: Joi.string().required(),
   password: Joi.string().required(),
-  firsName: Joi.string().required(),
+  confirmPassword: Joi.string().required(),
+  firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   age: Joi.number().required(),
-  admin: Joi.string(),
+  admin: Joi.boolean(),
   cellphone: Joi.number().required(),
-  country: Joi.string().required(),
-  city: Joi.string().required(),
-  street: Joi.string().required(),
+  address: AddressJoiSchema,
   timestamp: Joi.string()
 });
 
@@ -33,9 +41,7 @@ const UserSchema = new Schema(
     age: { type: Number, required: true },
     admin: { type: Boolean, default: false },
     cellphone: { type: Number, required: true },
-    country: { type: String, required: true },
-    city: { type: String, required: true },
-    street: { type: String, required: true },
+    address: { type: Object, required: true },
     timestamp: { type: String, default: moment().format('DD-MMM-YYYY HH:mm:ss') },
   },
   { versionKey: false }

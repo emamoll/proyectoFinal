@@ -28,8 +28,23 @@ export const notifyNewUserByEmail = async (userData: any) => {
   };
 
   const response = await gmailTransporter.sendMail(mailOptions);
+
   return response;
 };
+
+export const notifyNewUserRegistration = async (newUser: any) => {
+  const mailOption = {
+    from: owner,
+    to: newUser.email,
+    subject: `Bienvenido ${newUser.firstName}`,
+    html: `Tus datos para iniciar sesion son:
+        - email: ${newUser.email},
+        - contrasenia: ${newUser.password}`
+  }
+  const response = await gmailTransporter.sendMail(mailOption);
+
+  return response;
+}
 
 export const notifyNewOrderByWpp = async (orderData: any) => {
   const params = {
@@ -39,6 +54,7 @@ export const notifyNewOrderByWpp = async (orderData: any) => {
   };
 
   const response = await twilioApi.messages.create(params);
+  
   return response;
 };
 

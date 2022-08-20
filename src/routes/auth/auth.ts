@@ -1,22 +1,18 @@
 import { Router } from "express";
-import passportLocal from '../../middlewares/authentication';
-import { authController } from '../../controllers/auth';
+import { userController } from "../../controllers/user";
 import asyncHandler from 'express-async-handler';
 
 const router = Router();
 
 // Routes de login del usuario
-router.get('/login', asyncHandler(authController.getLogin));
+router.get('/login', asyncHandler(userController.getLogin));
 
-router.post('/login', passportLocal.authenticate('login'), asyncHandler(authController.postLogin));
+router.post('/login', userController.validUserAndPassword, asyncHandler(userController.login));
 
 // Routes de signup del usuario
-router.get('/signup', asyncHandler(authController.getSignup));
+router.get('/signup', asyncHandler(userController.getSignup));
 
-router.post('/signup', authController.userExists, authController.incompleteData, authController.userLegal, authController.passwordConfirmed, passportLocal.authenticate('signup'), asyncHandler(authController.postSignup));
-
-// Route de logout
-router.get('/logout', authController.logout);
+router.post('/signup', userController.existsEmail, userController.userLegal, userController.comparePassword, asyncHandler(userController.signup as any));
 
 // Respuesta por default
 router.use((req, res) => {
