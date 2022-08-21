@@ -36,7 +36,7 @@ export const notifyNewUserRegistration = async (newUser: any) => {
   const mailOption = {
     from: owner,
     to: newUser.email,
-    subject: `Bienvenido ${newUser.firstName}`,
+    subject: `Te damos la bienvenida ${newUser.firstName}`,
     html: `Tus datos para iniciar sesion son:
         - email: ${newUser.email},
         - contrasenia: ${newUser.password}`
