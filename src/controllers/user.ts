@@ -185,8 +185,6 @@ class UserController {
   async UserCheckAuth(req: Request, res: Response, next: NextFunction) {
     const token = req.headers['x-auth-token'];
 
-    console.log('token', req.headers);
-
     if (!token) {
       Logger.error('No tiene token!');
       return res.status(400).json({

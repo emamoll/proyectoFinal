@@ -18,6 +18,6 @@ router.use('/users', userController.UserCheckAuth, isAdmin, UsersRouter);
 router.use('/products', ProductsRouter);
 
 // Routes de productos
-router.use('/categories', CategoriesRouter);
+router.use('/categories', userController.UserCheckAuth, isAdmin, CategoriesRouter);
 
 export default router;

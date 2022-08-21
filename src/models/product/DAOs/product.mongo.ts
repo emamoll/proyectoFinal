@@ -21,11 +21,6 @@ export default class ProductDAO {
     return ProductDAO.instance;
   };
 
-  // Busco si el ObjectId es valido
-  isValid(id: string): boolean {
-    return ProductDAO.client.isValid(id);
-  };
-
   // Creo el producto
   async createProduct(data: ProductI) {
     try {
