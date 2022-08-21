@@ -1,12 +1,13 @@
 import { ProductModel } from "../product.shema";
 import { MongoDBClient } from "../../../services/mongodb";
-import { ProductI } from "../product.interface";
+import { NewProductDTO, ProductBaseClass, ProductDTO, ProductQueryI } from "../product.interface";
 import Logger from "../../../services/logger";
+import moment from 'moment';
 
-export default class ProductDAO {
+export default class ProductDAO implements ProductBaseClass {
   private static instance: ProductDAO;
   private static client: MongoDBClient;
-  product = ProductModel;
+  product: any = ProductModel;
 
   constructor() { };
 
@@ -22,10 +23,21 @@ export default class ProductDAO {
   };
 
   // Creo el producto
-  async createProduct(data: ProductI) {
+  async createProduct(data: NewProductDTO): Promise<ProductDTO> {
     try {
-      const newProduct = new this.product(data);
+      const product: ProductDTO = {
+        name: data.name!,
+        description: data.description!,
+        categoryId: data.categoryId!,
+        price: data.price!,
+        stock: data.stock!,
+        image: data.image!,
+        timestamp: moment().format('DD-MMM-YYYY HH:mm:ss')
+      }
+      const newProduct = new this.product(product);
+
       await newProduct.save();
+
       return newProduct;
     } catch (error: any) {
       Logger.error('Error al crear el producto');
@@ -34,9 +46,16 @@ export default class ProductDAO {
   };
 
   // Busco todos los productos
-  async getProducts() {
+  async getProducts(id?: string): Promise<ProductDTO[]> {
+    let response: ProductDTO[] = [];
+
     try {
-      const response = await this.product.find();
+      if (id) {
+        const productId = await this.product.findById(id);
+
+        if (productId) response.push(productId);
+      } else response = await this.product.find();
+
       return response;
     } catch (error: any) {
       Logger.error('Error al buscar todos los productos');
@@ -44,21 +63,12 @@ export default class ProductDAO {
     };
   };
 
-  // Busco el producto por su id
-  async getProductById(id: string) {
-    try {
-      const response = await this.product.findById(id);
-      return response;
-    } catch (error: any) {
-      Logger.error('Error al buscar el producto por su id');
-      throw new Error(`Error al buscar el producto: ${error.message}`);
-    };
-  };
-
   // Edito el producto
-  async updateProduct(id: string, newData: ProductI) {
+  async updateProduct(id: string, newData: NewProductDTO): Promise<ProductDTO> {
     try {
-      const response = await this.product.findByIdAndUpdate(id, newData);
+      const productUpdate: any = newData;
+      const response = await this.product.findByIdAndUpdate(id, productUpdate).then(() => this.product.findById(id) as any);
+
       return response;
     } catch (error: any) {
       Logger.error('Error al editar el producto');
@@ -66,14 +76,34 @@ export default class ProductDAO {
     };
   };
 
-  // Elimino el producto {
-    async deleteProduct(id: string) {
-      try {
-        const response = await this.product.findByIdAndDelete(id);
-        return response;
-      } catch (error: any) {
-        Logger.error('Error al eliminar el producto');
-        throw new Error(`Error al eliminar el producto: ${error.message}`);
-      };
+  // Elimino el producto 
+  async deleteProduct(id: string) {
+    try {
+      const response = await this.product.findByIdAndDelete(id);
+
+      return response;
+    } catch (error: any) {
+      Logger.error('Error al eliminar el producto');
+      throw new Error(`Error al eliminar el producto: ${error.message}`);
     };
+  };
+
+  // Query
+  async query(data: ProductQueryI): Promise<ProductDTO[]> {
+    try {
+      let query: ProductQueryI = {};
+
+      if (data.name) query.name = data.name;
+      if (data.description) query.description = data.description;
+      if (data.categoryId) query.categoryId = data.categoryId;
+      if (data.price) query.price = data.price;
+      if (data.stock) query.stock = data.stock;
+
+      const product = await this.product.find(query);
+      return product;
+    } catch (error: any) {
+      Logger.error('Error en el query de producto');
+      throw new Error(`Error en el query de producto: ${error.message}`);
+    };
+  };
 };

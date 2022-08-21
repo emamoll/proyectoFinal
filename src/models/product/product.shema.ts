@@ -11,8 +11,8 @@ export const ProductCollectionName = 'products';
 // Esquema de Joi
 export const ProductJoiSchema = Joi.object({
   name: Joi.string().required(),
-  desription: Joi.string().required(),
-  category: Joi.string().required(),
+  description: Joi.string().required(),
+  categoryId: Joi.string().required(),
   price: Joi.number().required(),
   stock: Joi.number().required(),
   image: Joi.string().required(),
@@ -21,8 +21,8 @@ export const ProductJoiSchema = Joi.object({
 
 export const NewProductJoiSchema = Joi.object({
   name: Joi.string(),
-  desription: Joi.string(),
-  category: Joi.string(),
+  description: Joi.string(),
+  categoryId: Joi.string(),
   price: Joi.number(),
   stock: Joi.number(),
   image: Joi.string(),

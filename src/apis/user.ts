@@ -41,22 +41,30 @@ class UserAPI {
 
   // Funcion para buscar todos los usuarios
   async getUsers(): Promise<UserDTO[]> {
-    return this.user.getUsers();
+    const user = await this.user.getUsers();
+
+    return user;
   };
 
   // Funcion para buscar un usuario segun su id
   async getUserById(id: string): Promise<UserDTO> {
-    return this.user.getUserById(id);
+    const user = await this.user.getUserById(id);
+
+    return user;
   };
 
   // Funcion para eliminar un usuario
   async deleteUser(id: string): Promise<any> {
-    return this.user.deleteUser(id);
+    const user = await this.user.deleteUser(id);
+
+    return user;
   };
 
   // Funcion para validar la contrasenia
   async validatePassword(user: any, password: string): Promise<boolean> {
-    return await this.user.validatePassword(user, password)
+    const userPassword = await await this.user.validatePassword(user, password);
+
+    return userPassword;
   }
 };
 

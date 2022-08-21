@@ -1,8 +1,8 @@
 export interface ProductI {
   _id?: string
   name: string
-  desription: string
-  categoryId: object
+  description: string
+  categoryId: string
   price: number
   stock: number
   image: string
@@ -10,10 +10,10 @@ export interface ProductI {
 };
 
 export class ProductDTO {
-  id: string
+  id?: string
   name: string
-  desription: string
-  categoryId: object
+  description: string
+  categoryId: string
   price: number
   stock: number
   image: string
@@ -22,7 +22,7 @@ export class ProductDTO {
   constructor(data: ProductI) {
     this.id = data._id || '';
     this.name = data.name;
-    this.desription = data.desription;
+    this.description = data.description;
     this.categoryId = data.categoryId;
     this.price = data.price;
     this.stock = data.stock;
@@ -34,7 +34,7 @@ export class ProductDTO {
 export interface NewProductI {
   id?: string
   name?: string
-  desription?: string
+  description?: string
   categoryId?: string
   price?: number
   stock?: number
@@ -46,17 +46,17 @@ export interface NewProductI {
 export class NewProductDTO {
   id?: string
   name?: string
-  desription?: string
+  description?: string
   categoryId?: string
   price?: number
   stock?: number
   image?: string
   timestamp?: string
 
-  constructor (data: NewProductI) {
+  constructor(data: NewProductI) {
     this.id = data.id;
     this.name = data.name;
-    this.desription = data.desription;
+    this.description = data.description;
     this.categoryId = data.categoryId;
     this.price = data.price;
     this.stock = data.stock;
@@ -67,7 +67,7 @@ export class NewProductDTO {
 
 export interface ProductQueryI {
   name?: string
-  desription?: string
+  description?: string
   categoryId?: string
   price?: number
   stock?: number
@@ -80,5 +80,5 @@ export interface ProductBaseClass {
   getProducts(id?: string | undefined): Promise<ProductDTO[]>;
   updateProduct(id: string, newData: NewProductDTO): Promise<ProductDTO>;
   deleteProduct(id: string): Promise<void>;
-  query(options: ProductQueryI): Promise<ProductDTO[]>;
+  query(data: ProductQueryI): Promise<ProductDTO[]>;
 };
