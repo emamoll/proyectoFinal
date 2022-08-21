@@ -11,12 +11,21 @@ export const ProductCollectionName = 'products';
 // Esquema de Joi
 export const ProductJoiSchema = Joi.object({
   name: Joi.string().required(),
-  desription: Joi.string().required(),
-  category: Joi.object().required(),
+  description: Joi.string().required(),
+  categoryId: Joi.string().required(),
   price: Joi.number().required(),
-  meassure: Joi.string().required(),
   stock: Joi.number().required(),
   image: Joi.string().required(),
+  timestamp: Joi.string()
+});
+
+export const NewProductJoiSchema = Joi.object({
+  name: Joi.string(),
+  description: Joi.string(),
+  categoryId: Joi.string(),
+  price: Joi.number(),
+  stock: Joi.number(),
+  image: Joi.string(),
   timestamp: Joi.string()
 })
 
@@ -31,7 +40,6 @@ const ProductSchema = new Schema(
       required: true,
     },
     price: { type: Number, required: true },
-    meassure: { type: String, required: true },
     stock: { type: Number, required: true },
     image: { type: String, required: true },
     timestamp: { type: String, default: moment().format('DD-MMM-YYYY HH:mm:ss') }

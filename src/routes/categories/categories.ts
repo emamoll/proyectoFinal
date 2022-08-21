@@ -9,16 +9,16 @@ const router = Router();
 router.get('/', asyncHandler(categoryController.getCategories));
 
 // Route para agregar una categoria
-router.post('/createCategory', isAdmin, asyncHandler(categoryController.createCategory));
+router.post('/createCategory', asyncHandler(categoryController.createCategory));
 
 // Route para mostrar una categoria por su id
 router.get('/:id', asyncHandler(categoryController.getCategoryById));
 
 // Route para editar una categoria por su id
-router.put('/:id', isAdmin, asyncHandler(categoryController.updateCategory));
+router.put('/:id', asyncHandler(categoryController.updateCategory));
 
 // Route para eliminar una categoria por su id
-router.delete('/:id', isAdmin, asyncHandler(categoryController.deleteCategory));
+router.delete('/:id', asyncHandler(categoryController.deleteCategory));
 
 // Respuesta por default
 router.use((req, res) => {

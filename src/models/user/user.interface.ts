@@ -47,4 +47,5 @@ export interface UserBaseClass {
   getUsers([]): Promise<UserDTO[]>;
   getUserById(id: string): Promise<UserDTO>;
   deleteUser(id: string): Promise<any>;
+  query(query: any): Promise<UserDTO>;
 }

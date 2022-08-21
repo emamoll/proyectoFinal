@@ -26,18 +26,6 @@ export default class UserDAO implements UserBaseClass {
     return UserDAO.instance;
   };
 
-  // Busco si el ObjectId es valido
-  isValid(id: string): boolean {
-    return UserDAO.client.isValid(id)
-  }
-
-  // Query de usuarios
-  async query(query: any): Promise<UserDTO> {
-    const response = await this.user.find(query);
-
-    return response[0];
-  };
-
   // Logueo de usuarios
   async login(data: UserDTO): Promise<UserDTO> {
     try {
@@ -99,8 +87,8 @@ export default class UserDAO implements UserBaseClass {
     try {
       const response = await this.user.findById(id);
 
-      if(!response) throw new Error('El usuario no existe');
-      
+      if (!response) throw new Error('El usuario no existe');
+
       return response;
     } catch (error: any) {
       Logger.error('Error al buscar el usuario por su id');
@@ -119,8 +107,15 @@ export default class UserDAO implements UserBaseClass {
     };
   };
 
+  // Query de usuarios
+  async query(query: any): Promise<UserDTO> {
+    const response = await this.user.find(query);
+
+    return response[0];
+  };
+
   // Valido la contrasenia
-  async validatePassword(user: UserI, password: string): Promise<boolean>  {
+  async validatePassword(user: UserI, password: string): Promise<boolean> {
     const emailUser = user.email
     const response = await this.user.findOne({ email: emailUser });
 
