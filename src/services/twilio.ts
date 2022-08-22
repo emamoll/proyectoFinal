@@ -44,7 +44,32 @@ export const notifyNewUserRegistration = async (newUser: any) => {
   const response = await gmailTransporter.sendMail(mailOption);
 
   return response;
-}
+};
+
+export const notifyNewOrderByEmail = async (order: any) => {
+  const mailOptions = {
+    from: owner,
+    to: Config.GMAIL_EMAIL,
+    subject: 'Nueva orden creada',
+    html: `Una nueva order fue creada: ${order}`,
+  };
+
+  const response = await gmailTransporter.sendMail(mailOptions);
+
+  return response;
+};
+
+export const notifyUserNewOrder = async (user: any, order: any) => {
+  const mailOption = {
+    from: owner,
+    to: user.email,
+    subject: 'Tu compra fue realizada con exito',
+    html: 'Tu compra fue realizada con exito'
+  }
+  const response = await gmailTransporter.sendMail(mailOption);
+
+  return response;
+};
 
 export const notifyNewOrderByWpp = async (orderData: any) => {
   const params = {

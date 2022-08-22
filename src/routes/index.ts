@@ -3,8 +3,9 @@ import AuthRouter from './auth/auth';
 import { isAdmin } from "../middlewares/authorization";
 import UsersRouter from './users/users';
 import ProductsRouter from './products/products';
-import CategoriesRouter from './categories/categories'
+import CategoriesRouter from './categories/categories';
 import { userController } from "../controllers/user";
+import CartsRouter from './carts/carts';
 
 const router = Router();
 
@@ -19,5 +20,8 @@ router.use('/products', ProductsRouter);
 
 // Routes de productos
 router.use('/categories', userController.UserCheckAuth, isAdmin, CategoriesRouter);
+
+// Routes de carritos
+router.use('/carts', userController.UserCheckAuth, CartsRouter);
 
 export default router;

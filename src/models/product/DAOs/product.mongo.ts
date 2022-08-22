@@ -15,7 +15,9 @@ export default class ProductDAO implements ProductBaseClass {
   static async getInstance() {
     if (!ProductDAO.instance) {
       Logger.info('Inicializamos DAO Product con Mongo Atlas');
+
       await MongoDBClient.getConnection();
+      
       ProductDAO.instance = new ProductDAO();
       ProductDAO.client = await MongoDBClient.getConnection();
     };

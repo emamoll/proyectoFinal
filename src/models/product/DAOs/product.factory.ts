@@ -9,8 +9,8 @@ export class ProductFactoryDAO {
         Logger.info('Retornando instancia clase Product Mongo Atlas');
         return new ProductDAO();
       default:
-        Logger.info('Retornando por defecto instancia clase Mongo Atlas');
+        Logger.info('Retornando por defecto instancia clase Producto Mongo Atlas');
         return new ProductDAO();
     };
-  }
-}
+  };
+};

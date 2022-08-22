@@ -2,6 +2,7 @@ import Config from "../config";
 import { UserFactoryDAO } from "../models/user/DAOs/user.factory";
 import { UserDTO, UserI, UserQueryI } from "../models/user/user.interface";
 import { MongoDBClient } from "../services/mongodb";
+import { cartAPI } from "./cart";
 import { categoryAPI } from "./category";
 
 class UserAPI {
@@ -33,8 +34,7 @@ class UserAPI {
   async signup(data: UserDTO): Promise<UserDTO> {
     const newUser = await this.user.signup(data);
 
-    // Cuando se registra un usuario nuevo se crea un carrito unico
-    // await categoryAPI.createCart(newUser.id);
+    await cartAPI.createCart(newUser.id);
 
     return newUser;
   }
