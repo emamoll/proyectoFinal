@@ -66,11 +66,7 @@ export default class CartDAO implements CartBaseClass {
 
       if (!cart) throw new Error('El carrito no existe');
 
-      const index = cart.products.findIndex((aProduct: any) => aProduct.productId === product.productId);
-      console.log('productId', product.productId);
-      console.log('productId',typeof product.productId);
-
-      
+      const index = cart.products.findIndex((aProduct: any) => aProduct.productId === product.productId);      
 
       if (index < 0) cart.products.push(product);
       else cart.products[index].amount += product.amount;
