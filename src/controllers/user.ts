@@ -68,7 +68,6 @@ class UserController {
       };
 
       const newUser = await userAPI.signup(req.body);
-      const token = await generateAuthToken(newUser);
 
       Logger.info('Nuevo usuario creado');
       Logger.info(newUser);
@@ -76,9 +75,8 @@ class UserController {
       notifyNewUserByEmail(newUser);
       notifyNewUserRegistration(newUser);
 
-      return res.header('x-auth-token', token).status(200).json({
-        msg: 'Registro con exito',
-        token
+      return res.status(200).json({
+        msg: 'Registro con exito'
       });
     } catch (error: any) {
       res.status(400).json({

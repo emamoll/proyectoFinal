@@ -21,11 +21,6 @@ export default class CategoryDAO {
     return CategoryDAO.instance;
   };
 
-  // Busco si el ObjectId es valido
-  isValid(id: string): boolean {
-    return CategoryDAO.client.isValid(id);
-  };
-
   // Creo la categoria
   async createCategory(data: CategoryI) {
     try {

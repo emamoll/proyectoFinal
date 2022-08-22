@@ -7,10 +7,6 @@ export class MongoDBClient {
 
   private constructor() { }
 
-  isValid(id: string): boolean {
-    return mongoose.isValidObjectId(id);
-  }
-
   static async getConnection(local: boolean = false) {
     if (!MongoDBClient.client) {
       Logger.info('Iniciamos la conexion con mongo');

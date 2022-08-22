@@ -12,7 +12,7 @@ export interface UserI {
 };
 
 export class UserDTO {
-  id?: string
+  id?: any
   email: string
   password: string
   firstName: string

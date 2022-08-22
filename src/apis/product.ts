@@ -1,6 +1,6 @@
 import Config from "../config";
 import { ProductFactoryDAO } from "../models/product/DAOs/product.factory";
-import { NewProductDTO, ProductDTO, ProductI, ProductQueryI } from "../models/product/product.interface";
+import { NewProductDTO, ProductDTO, ProductQueryI } from "../models/product/product.interface";
 import { MongoDBClient } from "../services/mongodb";
 
 class ProductAPI {
