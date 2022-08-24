@@ -45,5 +45,5 @@ export interface CartBaseClass {
   createCart(userId: string, userAddress: object): Promise<CartDTO>;
   addToCart(cartId: string, product: ProductObjectDTO): Promise<CartDTO>;
   removeToCart(cartId: string, product: ProductObjectDTO): Promise<CartDTO>;
-  emptyCart(cartId: string): Promise<CartDTO>;
+  emptyCart(cartId: string, productId: ProductObjectDTO): Promise<CartDTO>;
 };

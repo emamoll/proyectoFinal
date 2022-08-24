@@ -114,10 +114,7 @@ class ProductController {
         });
       };
 
-      Logger.info(`Se quito ${amount} del stock del producto ${productId}`);
-
       await productAPI.updateProduct(productId, { stock: product[0].stock - Number(amount) });
-
 
       next();
     } catch (error: any) {
