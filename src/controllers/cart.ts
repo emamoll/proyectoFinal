@@ -56,7 +56,7 @@ class Cart {
         msg: 'El campo de cantidad debe ser un numero'
       });
 
-      Logger.info(`Se agrego al carrito: ${productId}, ${amount}`);
+      Logger.info(`Se agrego al carrito ${amount} del producto ${productId}`);
 
       const cartUpdated = await cartAPI.addToCart(cartId, productId, Number(amount));
 
@@ -90,7 +90,7 @@ class Cart {
         msg: 'El campo de cantidad debe ser un numero'
       });
 
-      Logger.info(`Se quito del carrito: ${productId}, ${amount}`);
+      Logger.info(`Se quito del carrito ${amount} del producto ${productId}`);
       const cartUpdated = await cartAPI.removeToCart(cartId, productId, Number(amount));
       const stockProduct = await productAPI.getProducts(productId);
 
@@ -125,7 +125,15 @@ class Cart {
 
       const cart = await cartAPI.getCart(userId);
       const cartId = cart.id;
+      cart.products.forEach(async aProduct => {
+        const stockProduct = await productAPI.getProducts(aProduct.productId);
+        productAPI.updateProduct(aProduct.productId, { stock: stockProduct[0].stock + Number(aProduct.amount) });
+      });
+
       const empty = await cartAPI.emptyCart(cartId);
+
+
+
 
       return res.status(200).json({
         msg: 'Carrito vacio',
@@ -157,7 +165,7 @@ class Cart {
 
       // const newOrder = await orderApi.createOrder(userId)
 
-      await cartAPI.emptyCart(cartId);
+      // await cartAPI.emptyCart(cartId);
 
       // notifyNewOrderByWpp(newOrder);
       // notifyNewOrderByEmail(newOrder);
@@ -165,7 +173,7 @@ class Cart {
 
       return res.status(200).json({
         msg: 'Su orden fue creada',
-        // data: newUser
+        // data: newOrder
       });
     } catch (error: any) {
       res.status(400).json({
