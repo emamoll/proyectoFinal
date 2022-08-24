@@ -114,46 +114,10 @@ class ProductController {
         });
       };
 
-      Logger.info(`Se modifico el stock del producto ${productId}`);
+      Logger.info(`Se quito ${amount} del stock del producto ${productId}`);
 
       await productAPI.updateProduct(productId, { stock: product[0].stock - Number(amount) });
 
-      next();
-    } catch (error: any) {
-      res.status(404).json({
-        msg: error.message
-      });
-    };
-  };
-
-  // Modifico el stock en el caso de una compra
-  async stockUpdateRemove(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { productId, amount } = req.body;
-
-      if (typeof Number(amount) !== 'number') {
-        return res.status(400).json({
-          msg: 'La cantidad ingresada no es valida'
-        });
-      };
-
-      const product = await productAPI.getProducts(productId);
-
-      if (product.length < 1) {
-        return res.status(404).json({
-          msg: 'El producto no existe'
-        });
-      };
-
-      if (product[0].stock < amount) {
-        return res.status(400).json({
-          msg: 'No hay stock'
-        });
-      };
-
-      Logger.info(`Se modifico el stock del producto ${productId}`);
-
-      await productAPI.updateProduct(productId, { stock: product[0].stock + Number(amount) });
 
       next();
     } catch (error: any) {

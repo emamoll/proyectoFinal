@@ -13,7 +13,7 @@ router.get('/', asyncHandler(cartController.getCart as any));
 router.post('/addProduct', productController.stockUpdate, asyncHandler(cartController.addToCart as any));
 
 // Route para elimiar un producto del carrito
-router.post('/removeProduct', productController.stockUpdateRemove, asyncHandler(cartController.removeToCart as any));
+router.post('/removeProduct', asyncHandler(cartController.removeToCart as any));
 
 // Eliminar esta funcion
 // Route para vaciar el carrito

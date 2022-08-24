@@ -90,6 +90,7 @@ class Cart {
         msg: 'El campo de cantidad debe ser un numero'
       });
 
+      Logger.info(`Se quito del carrito: ${productId}, ${amount}`);
       const cartUpdated = await cartAPI.removeToCart(cartId, productId, Number(amount));
       const stockProduct = await productAPI.getProducts(productId);
 

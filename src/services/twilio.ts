@@ -39,7 +39,7 @@ export const notifyNewUserRegistration = async (newUser: any) => {
     subject: `Te damos la bienvenida ${newUser.firstName}`,
     html: `Tus datos para iniciar sesion son:
         - email: ${newUser.email},
-        - contrasenia: ${newUser.password}`
+        - password: ${newUser.password}`
   }
   const response = await gmailTransporter.sendMail(mailOption);
 

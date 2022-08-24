@@ -27,7 +27,7 @@ class UserController {
       const token = await generateAuthToken(user);
 
       res.header('x-auth-token', token).status(200).json({
-        msg: `Bienvenido ${user.firstName}`,
+        msg: `Te damos la bienvenida ${user.firstName}`,
         token
       });
 

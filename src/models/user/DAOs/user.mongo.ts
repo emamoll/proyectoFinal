@@ -50,7 +50,7 @@ export default class UserDAO implements UserBaseClass {
         firstName: data.firstName,
         lastName: data.lastName,
         age: data.age,
-        admin: true,
+        admin: false,
         cellphone: data.cellphone,
         address: data.address,
         timestamp: moment().format('DD-MMM-YYYY HH:mm:ss')
