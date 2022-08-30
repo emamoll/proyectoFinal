@@ -1,11 +1,20 @@
 import mongoose from "mongoose";
-import Joi, { string } from "joi";
 import moment from "moment";
+import Joi from "joi";
 
 const Schema = mongoose.Schema;
 
-// Nomber de la coleccion
+// Nombre de la coleccion
 export const CartCollectionName = 'carts';
+
+// Esquema de Joi
+export const CartJoiSchema = Joi.object({
+  userId: Joi.string().required(),
+  products: Joi.array().required(),
+  dateCreated: Joi.string().required(),
+  dateUpdated: Joi.string().required(),
+  userAddress: Joi.object().required()
+});
 
 // Esquema de mongo
 const CartSChema = new Schema(

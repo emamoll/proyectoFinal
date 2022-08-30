@@ -41,6 +41,8 @@
     "normalizr": "^3.6.2",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pug": "^3.0.2",
+    "socket.io": "^4.5.1",
     "twilio": "^3.79.0",
     "typescript": "^4.7.4",
     "winston": "^3.8.1"

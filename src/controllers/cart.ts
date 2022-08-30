@@ -3,6 +3,7 @@ import { cartAPI } from "../apis/cart";
 import { productAPI } from "../apis/product";
 import { UserDTO } from "../models/user/user.interface";
 import Logger from "../services/logger";
+import { orderAPI } from "../apis/order";
 import { notifyNewOrderByEmail, notifyNewOrderByWpp, notifyUserNewOrder } from "../services/twilio";
 
 class Cart {
@@ -110,7 +111,6 @@ class Cart {
     };
   };
 
-  // Eliminar esta funcion
   // Funcion para vaciar el carrito
   async emptyCart(req: Request, res: Response) {
     try {
@@ -163,17 +163,17 @@ class Cart {
 
       Logger.info(`Compra finalizada: ${cartId}`);
 
-      // const newOrder = await orderApi.createOrder(userId)
+      const newOrder = await orderAPI.createOrder(userId);
 
-      // await cartAPI.emptyCart(cartId);
+      await cartAPI.emptyCart(cartId);
 
       // notifyNewOrderByWpp(newOrder);
-      // notifyNewOrderByEmail(newOrder);
-      // notifyUserNewOrder(user.email, newOrder);
+      notifyNewOrderByEmail(newOrder);
+      notifyUserNewOrder(user.email, newOrder);
 
       return res.status(200).json({
         msg: 'Su orden fue creada',
-        // data: newOrder
+        data: newOrder
       });
     } catch (error: any) {
       res.status(400).json({

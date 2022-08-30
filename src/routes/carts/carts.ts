@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { cartController } from "../../controllers/cart";
 import asyncHandler from 'express-async-handler';
-import { userController } from "../../controllers/user";
 import { productController } from "../../controllers/product";
 
 const router = Router();

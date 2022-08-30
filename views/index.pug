@@ -1,0 +1,19 @@
+html  
+  head 
+    title= 'Proyecto Final Backend'
+    script(src='/socket.io/socket.io.js') 
+  body 
+    h1= 'CHATBOT'
+    div 
+      form(id='tokenForm')
+        label= 'Ingrese su token'
+        input(type='text', id='tokenUser', name='tokenUser', placeholder='Escriba su token')
+        button(type='submit' id='tokenSubmit')= 'Ingresar' 
+    div(id='chat')
+      div(id='messagesChat')
+    div 
+      form(id='chatForm')
+        input(type='text', id='inputMsg', name='inputMsg', placeholder='Escriba su mensaje')
+        button(type='submit' id='messageSubmit')= 'Enviar' 
+    script(src='index.js') 
+      
