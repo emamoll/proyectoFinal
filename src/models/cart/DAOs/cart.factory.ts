@@ -11,7 +11,6 @@ export class CartFactoryDAO {
       default:
         Logger.info('Retornando por defecto instancia clase Carrito Mongo Atlas');
         return new CartDAO()
-
     };
   };
 };

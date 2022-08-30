@@ -4,12 +4,27 @@ import Logger from './logger';
 import mainRouter from '../routes';
 import compression from 'compression';
 import cors from 'cors';
-import { ErrorRequestHandler } from 'express';
+import { ErrorRequestHandler, Request, Response } from 'express';
+import path from 'path';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Configuracion pug
+const publicPath = path.resolve(__dirname, '../../public');
+app.use(express.static(publicPath));
+
+app.set('view engine', 'pug');
+
+const viewsPath = path.resolve(__dirname, '../../views');
+
+app.set('views', viewsPath);
+
+app.get('/chatbot', (req: Request, res: Response) => {
+  res.render('index');
+});
 
 // Error handler
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
