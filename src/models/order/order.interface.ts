@@ -8,7 +8,7 @@ export interface OrderI {
 }
 
 export class OrderDTO {
-  id?: string
+  orderId?: string
   userId: string
   products: object[]
   status: string
@@ -16,7 +16,7 @@ export class OrderDTO {
   total: number
 
   constructor(data: OrderI) {
-    this.id = data._id;
+    this.orderId = data._id;
     this.userId = data.userId;
     this.products = data.products;
     this.status = data.status;
@@ -27,7 +27,7 @@ export class OrderDTO {
 
 export interface OrderBaseClass {
   getOrders(userId?: string): Promise<OrderDTO[]>;
-  getOrderById(id: string): Promise<OrderDTO>;
+  getOrderById(orderId: string): Promise<OrderDTO>;
   createOrder(
     userId: string,
     products: object[],
@@ -35,5 +35,5 @@ export interface OrderBaseClass {
     timestamp: string,
     total: number
   ): Promise<OrderDTO>;
-  completeOrder(id: string): Promise<OrderDTO>;
+  completeOrder(orderId: string): Promise<OrderDTO>;
 };

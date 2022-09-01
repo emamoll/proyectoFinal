@@ -8,7 +8,7 @@ const router = Router();
 router.get('/', asyncHandler(orderController.getOrders as any));
 
 // Route para mostrar la orden segun el id
-router.get('/:id', asyncHandler(orderController.getOrdersById as any));
+router.get('/:orderId', asyncHandler(orderController.getOrdersById as any));
 
 // Route para completar la orden
 router.post('/complete', asyncHandler(orderController.completeOrder as any));

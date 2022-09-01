@@ -6,6 +6,8 @@ import { productAPI } from "./product";
 import { cartAPI } from "./cart";
 import Logger from "../services/logger";
 import moment from "moment";
+import { ProductDTO } from "../models/product/product.interface";
+import { ProductObjectDTO } from "../models/cart/cart.interface";
 
 class OrderAPI {
   order;
@@ -17,8 +19,8 @@ class OrderAPI {
   };
 
   // Funcion para buscar la orden
-  async findOrder(id: string): Promise<Boolean> {
-    const order = await this.order.findOrder(id);
+  async findOrder(orderId: string): Promise<Boolean> {
+    const order = await this.order.findOrder(orderId);
 
     return order;
   };
@@ -31,8 +33,8 @@ class OrderAPI {
   };
 
   // Funcion para buscar la orden por el id
-  async getOrderById(id: string): Promise<OrderDTO> {
-    const order = await this.order.getOrderById(id);
+  async getOrderById(orderId: string): Promise<OrderDTO> {
+    const order = await this.order.getOrderById(orderId);
 
     return order;
   };
@@ -45,7 +47,7 @@ class OrderAPI {
 
     if (!cart) throw new Error('El carrito no existe');
 
-    const getPrice = async (product: any) => await productAPI.getProducts(product.id).then((product) => product[0].price);
+    const getPrice = async (product: ProductObjectDTO) => await productAPI.getProducts(product.productId).then((product) => product[0].price);
     const products = await Promise.all(
       cart.products.map(async (product) => {
         const price = await getPrice(product);
@@ -55,8 +57,10 @@ class OrderAPI {
           amount: product.amount,
           price
         };
-      }));
+      })
+    );
 
+    console.log('Price', products);
     const totalOrder = products.reduce((total, product) => total + product.price * product.amount, 0);
     const order = {
       userId: cart.userId,
@@ -76,13 +80,13 @@ class OrderAPI {
   };
 
   // Funcion para completar la orden
-  async completeOrder(id: string): Promise<OrderDTO> {
-    const order = await this.order.getOrderById(id);
+  async completeOrder(orderId: string): Promise<OrderDTO> {
+    const order = await this.order.getOrderById(orderId);
 
     if (!order) throw new Error('La orden no existe');
     if (order.status !== 'Generated') throw new Error('La orden no esta generada');
 
-    const completeOrder = await this.order.completeOrder(id);
+    const completeOrder = await this.order.completeOrder(orderId);
 
     completeOrder.status = 'Send';
 

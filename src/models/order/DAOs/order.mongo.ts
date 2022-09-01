@@ -25,9 +25,9 @@ export default class OrderDAO implements OrderBaseClass {
   };
 
   // Busco la orden
-  async findOrder(id: string): Promise<Boolean> {
+  async findOrder(orderId: string): Promise<Boolean> {
     try {
-      const order: any = await this.order.find({ id });
+      const order: any = await this.order.find({ orderId });
 
       if (!order) return false;
 
@@ -53,9 +53,9 @@ export default class OrderDAO implements OrderBaseClass {
   };
 
   // Busco la orden por el id
-  async getOrderById(id: string): Promise<OrderDTO> {
+  async getOrderById(orderId: string): Promise<OrderDTO> {
     try {
-      const order = await this.order.findById(id);
+      const order = await this.order.findById(orderId)
 
       if (!order) throw new Error('No existe esa orden');
 
@@ -88,9 +88,9 @@ export default class OrderDAO implements OrderBaseClass {
     };
   };
 
-  async completeOrder(id: string): Promise<OrderDTO> {
+  async completeOrder(orderId: string): Promise<OrderDTO> {
     try {
-      const order = await this.order.findById(id);
+      const order = await this.order.findById(orderId);
 
       if (!order) throw new Error('No existe esa orden');
 

@@ -32,7 +32,8 @@ const OrderSchema = new Schema(
     status: { type: String, required: true },
     timestamp: { type: String, required: false },
     total: { type: Number, required: true },
-  }
+  },
+  { versionKey: false }
 );
 
 export const OrderModel = mongoose.model(OrderCollectionName, OrderSchema);

@@ -26,12 +26,12 @@ export class CartDTO {
 };
 
 export interface ProductObjectI {
-  _id: any
+  _id: string
   amount: number
 };
 
 export class ProductObjectDTO {
-  productId: any
+  productId: string
   amount: number
 
   constructor(data: ProductObjectI) {

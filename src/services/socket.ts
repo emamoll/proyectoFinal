@@ -5,7 +5,6 @@ import { UserDTO } from '../models/user/user.interface';
 import { checkAuth } from '../middlewares/authentication';
 import { messageAPI } from '../apis/message';
 import { chatbot } from '../middlewares/chatbot';
-import { any } from 'joi';
 
 const initWsServer = (server: any) => {
   const io = new Server(server);
@@ -40,7 +39,6 @@ const initWsServer = (server: any) => {
 
     socket.on('chatbot', async (data) => {
       const userId = user.id;
-      const userName = `${user.firstName} + ${user.lastName}`;
       if (!userId) {
         socket.emit('chat', [{
           from: 'System',

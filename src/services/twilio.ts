@@ -62,8 +62,20 @@ export const notifyNewOrderByEmail = async (order: any) => {
 export const notifyUserNewOrder = async (user: any, order: any) => {
   const mailOption = {
     from: owner,
-    to: user.email,
+    to: user,
     subject: 'Tu compra fue realizada con exito',
+    html: `Tu compra fue la siguiente: ${order}`
+  }
+  const response = await gmailTransporter.sendMail(mailOption);
+
+  return response;
+};
+
+export const notifyUserOrderSend = async (user: any, order: any) => {
+  const mailOption = {
+    from: owner,
+    to: user,
+    subject: 'Tu compra ha sido enviada',
     html: `Tu compra fue la siguiente: ${order}`
   }
   const response = await gmailTransporter.sendMail(mailOption);

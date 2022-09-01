@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { orderAPI } from "../apis/order";
 import { UserDTO } from "../models/user/user.interface";
 import Logger from "../services/logger";
-import { notifyUserNewOrder } from "../services/twilio";
+import { notifyUserNewOrder, notifyUserOrderSend } from "../services/twilio";
 
 class Order {
   // Funcion para mostrar la orden
@@ -33,8 +33,8 @@ class Order {
     try {
       const user: UserDTO = req.user as UserDTO;
       const userId = user.id;
-      const { id } = req.params;
-      const order = await orderAPI.getOrderById(id);
+      const { orderId } = req.params;
+      const order = await orderAPI.getOrderById(orderId);
 
       if (!order) {
         return res.status(404).json({
@@ -42,9 +42,9 @@ class Order {
         });
       };
 
-      if (order.userId !== userId) {
+      if (order.userId.toString() !== userId.toString()) {
         return res.status(404).json({
-          msg: 'La orden no existe'
+          msg: 'La orden no existe 2'
         });
       };
 
@@ -72,7 +72,7 @@ class Order {
         });
       };
 
-      if (order.userId !== userId) {
+      if (order.userId.toString() !== userId.toString()) {
         return res.status(404).json({
           msg: 'La orden no existe'
         });
@@ -80,7 +80,7 @@ class Order {
 
       const sendOrder = await orderAPI.completeOrder(orderId);
 
-      notifyUserNewOrder(user.email, sendOrder);
+      notifyUserOrderSend(user.email, sendOrder);
 
       return res.status(200).json({
         data: sendOrder
