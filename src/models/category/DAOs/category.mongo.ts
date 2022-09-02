@@ -48,6 +48,9 @@ export default class CategoryDAO {
   async getCategoryById(id: string) {
     try {
       const response = await this.category.findById(id);
+
+      if (!response) throw new Error('La categoria no existe');
+
       return response;
     } catch (error: any) {
       Logger.error('Error al buscar la categoria por su id');
@@ -59,6 +62,9 @@ export default class CategoryDAO {
   async updateCategory(id: string, newData: CategoryI) {
     try {
       const response = await this.category.findByIdAndUpdate(id, newData);
+
+      if (!response) throw new Error('La categoria no existe');
+
       return response;
     } catch (error: any) {
       Logger.error('Error al editar la categoria');
@@ -70,6 +76,9 @@ export default class CategoryDAO {
   async deleteCategory(id: string) {
     try {
       const response = await this.category.findByIdAndDelete(id);
+
+      if (!response) throw new Error('La categoria no existe');
+
       return response;
     } catch (error: any) {
       Logger.error('Error al eliminar la categoria');

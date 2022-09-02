@@ -7,6 +7,7 @@ import CategoriesRouter from './categories/categories';
 import { userController } from "../controllers/user";
 import CartsRouter from './carts/carts';
 import OrdersRouter from './orders/orders';
+import ImageRouter from './imagesRoutes/images';
 
 const router = Router();
 
@@ -25,6 +26,9 @@ router.use('/categories', userController.UserCheckAuth, isAdmin, CategoriesRoute
 // Routes de carritos
 router.use('/carts', userController.UserCheckAuth, CartsRouter);
 
-router.use('/orders', userController.UserCheckAuth, OrdersRouter)
+router.use('/orders', userController.UserCheckAuth, OrdersRouter);
+
+// Routes de imagenes
+router.use('/images', ImageRouter);
 
 export default router;

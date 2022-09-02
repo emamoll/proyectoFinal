@@ -5,7 +5,7 @@ export interface ProductI {
   categoryId: string
   price: number
   stock: number
-  image: string
+  image: object[]
   timestamp: string
 };
 
@@ -16,7 +16,7 @@ export class ProductDTO {
   categoryId: string
   price: number
   stock: number
-  image: string
+  image: object[]
   timestamp: string
 
   constructor(data: ProductI) {
@@ -38,7 +38,7 @@ export interface NewProductI {
   categoryId?: string
   price?: number
   stock?: number
-  image?: string
+  image?: any
   timestamp?: string
 };
 
@@ -50,7 +50,7 @@ export class NewProductDTO {
   categoryId?: string
   price?: number
   stock?: number
-  image?: string
+  image?: any
   timestamp?: string
 
   constructor(data: NewProductI) {
@@ -71,7 +71,7 @@ export interface ProductQueryI {
   categoryId?: string
   price?: number
   stock?: number
-  image?: string
+  image?: object[]
   timestamp?: string
 };
 
