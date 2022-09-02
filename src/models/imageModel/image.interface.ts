@@ -2,7 +2,7 @@ export interface ImageI {
   _id: string
   productId: string
   filename: string
-  type: 'JPG' | 'PNG'
+  type: 'JPG' 
   timestamp: string
 };
 
@@ -10,7 +10,7 @@ export class ImageDTO {
   id: string
   productId: string
   filename: string
-  type: 'JPG' | 'PNG'
+  type: 'JPG'
   timestamp: string
 
   constructor(data: ImageI) {

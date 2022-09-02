@@ -24,33 +24,35 @@ class ImageController {
   };
 
   // Funcion para subir una imagen nueva
-  async uploadImage(req: Request, res: Response) {
+  async uploadImage(req: Request, res: Response, next: NextFunction) {
     try {
       const { productId, filename, type } = req.body;
-      const imageUpload: any = await imageAPI.uploadImage(req.body);
 
       if (type !== 'JPG') {
         res.status(400).json({
           msg: 'El tipo de imagen no es valido'
         });
-      };
+      } else {
+        const imageUpload: any = await imageAPI.uploadImage(req.body);
+        const product = await productAPI.getProducts(productId);
 
-      const product = await productAPI.getProducts(productId);
+        if (!product) {
+          res.status(404).json({
+            msg: 'El producto no existe'
+          });
+        };
 
-      if (!product) {
-        res.status(404).json({
-          msg: 'El producto no existe'
+        const imageProduct = [...product[0].image, imageUpload];
+        const productUpdated = await productAPI.updateProduct(productId, { image: imageProduct });
+
+        return res.status(200).json({
+          msg: 'La foto fue cargada',
+          data: imageUpload,
+          item: productUpdated.image
         });
-      };
+      }
 
-      const imageProduct = [...product[0].image, imageUpload];
-      const productUpdated = await productAPI.updateProduct(productId, { image: imageProduct });
 
-      return res.status(200).json({
-        msg: 'La foto fue cargada',
-        data: imageUpload,
-        item: productUpdated
-      });
     } catch (error: any) {
       res.status(400).json({
         msg: error.message
