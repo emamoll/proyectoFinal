@@ -167,7 +167,7 @@ class Cart {
 
       await cartAPI.emptyCart(cartId);
 
-      // notifyNewOrderByWpp(newOrder);
+      notifyNewOrderByWpp(newOrder);
       notifyNewOrderByEmail(newOrder);
       notifyUserNewOrder(user.email, newOrder);
 

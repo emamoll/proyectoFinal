@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { orderAPI } from "../apis/order";
 import { UserDTO } from "../models/user/user.interface";
-import Logger from "../services/logger";
-import { notifyUserNewOrder, notifyUserOrderSend } from "../services/twilio";
+import { notifyUserOrderSend } from "../services/twilio";
 
 class Order {
   // Funcion para mostrar la orden

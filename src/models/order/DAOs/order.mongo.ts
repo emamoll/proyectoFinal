@@ -2,7 +2,6 @@ import { MongoDBClient } from "../../../services/mongodb";
 import { OrderBaseClass, OrderDTO } from "../order.interface";
 import { OrderModel } from "../order.schema";
 import Logger from "../../../services/logger";
-import moment from "moment";
 
 export default class OrderDAO implements OrderBaseClass {
   private static instance: OrderDAO;

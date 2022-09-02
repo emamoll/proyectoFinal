@@ -2,7 +2,6 @@ import { MongoDBClient } from "../../../services/mongodb";
 import { MessageBaseClass, MessageDTO } from "../message.interface";
 import { MessageModel } from "../message.schema";
 import Logger from "../../../services/logger";
-import moment from "moment";
 
 export default class MessageDAO implements MessageBaseClass {
   private static instance: MessageDAO;

@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { productAPI } from "../apis/product";
 import { ProductQueryI } from "../models/product/product.interface";
 import { NewProductJoiSchema, ProductJoiSchema } from "../models/product/product.shema";
-import Logger from "../services/logger";
 
 class ProductController {
   // Valido campos para crear un producto

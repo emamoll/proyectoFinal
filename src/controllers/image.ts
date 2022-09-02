@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { imageAPI } from "../apis/image";
 import { productAPI } from "../apis/product";
 import { ImageJoiSchema } from "../models/imageModel/image.schema";
-import { ProductDTO } from "../models/product/product.interface";
 
 class ImageController {
   // Validos los campos para subir la imagen

@@ -3,7 +3,6 @@ import { UserFactoryDAO } from "../models/user/DAOs/user.factory";
 import { UserDTO, UserI, UserQueryI } from "../models/user/user.interface";
 import { MongoDBClient } from "../services/mongodb";
 import { cartAPI } from "./cart";
-import { categoryAPI } from "./category";
 
 class UserAPI {
   user;

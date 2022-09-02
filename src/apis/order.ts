@@ -6,7 +6,6 @@ import { productAPI } from "./product";
 import { cartAPI } from "./cart";
 import Logger from "../services/logger";
 import moment from "moment";
-import { ProductDTO } from "../models/product/product.interface";
 import { ProductObjectDTO } from "../models/cart/cart.interface";
 
 class OrderAPI {

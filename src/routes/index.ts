@@ -26,6 +26,7 @@ router.use('/categories', userController.UserCheckAuth, isAdmin, CategoriesRoute
 // Routes de carritos
 router.use('/carts', userController.UserCheckAuth, CartsRouter);
 
+// Route de ordenes
 router.use('/orders', userController.UserCheckAuth, OrdersRouter);
 
 // Routes de imagenes

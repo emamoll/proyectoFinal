@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { UserDTO } from "../models/user/user.interface";
 import Logger from "../services/logger";
 

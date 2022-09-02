@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { categoryController } from "../../controllers/category";
 import asyncHandler from 'express-async-handler';
-import { isAdmin } from "../../middlewares/authorization";
 
 const router = Router();
 
