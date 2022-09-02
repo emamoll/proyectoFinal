@@ -15,7 +15,7 @@ export const ProductJoiSchema = Joi.object({
   categoryId: Joi.string().required(),
   price: Joi.number().required(),
   stock: Joi.number().required(),
-  image: Joi.string().required(),
+  image: Joi.array(),
   timestamp: Joi.string()
 });
 
@@ -25,7 +25,7 @@ export const NewProductJoiSchema = Joi.object({
   categoryId: Joi.string(),
   price: Joi.number(),
   stock: Joi.number(),
-  image: Joi.string(),
+  image: Joi.array(),
   timestamp: Joi.string()
 })
 
@@ -41,7 +41,11 @@ const ProductSchema = new Schema(
     },
     price: { type: Number, required: true },
     stock: { type: Number, required: true },
-    image: { type: String, required: true },
+    image: [
+      {
+        id: Schema.Types.ObjectId,
+      }
+    ],
     timestamp: { type: String, default: moment().format('DD-MMM-YYYY HH:mm:ss') }
   },
   { versionKey: false }
