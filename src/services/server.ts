@@ -6,6 +6,8 @@ import compression from 'compression';
 import cors from 'cors';
 import { ErrorRequestHandler, Request, Response } from 'express';
 import path from 'path';
+import SwaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 const app = express();
 
@@ -52,6 +54,11 @@ app.use(cors());
 
 // Routes
 app.use('/api', mainRouter);
+
+const swaggerPath = path.resolve(process.cwd(), './swagger.yml');
+const swaggerDoc = YAML.load(swaggerPath);
+
+app.use('/api-docs', SwaggerUi.serve, SwaggerUi.setup(swaggerDoc));
 
 // Respuesta por default
 app.use((req, res) => {

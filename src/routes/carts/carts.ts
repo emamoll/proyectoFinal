@@ -14,7 +14,6 @@ router.post('/addProduct', productController.stockUpdate, asyncHandler(cartContr
 // Route para elimiar un producto del carrito
 router.post('/removeProduct', asyncHandler(cartController.removeToCart as any));
 
-// Eliminar esta funcion
 // Route para vaciar el carrito
 router.get('/emptyCart', asyncHandler(cartController.emptyCart as any));
 

@@ -26,7 +26,7 @@ class ProductAPI {
   };
 
   async getProductsByCategory(categoryId: string) {
-    const category = await this.product.query({ categoryId });
+    const category = await this.product!.query({ categoryId });
 
     return category;
   }

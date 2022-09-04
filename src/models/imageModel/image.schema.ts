@@ -21,7 +21,7 @@ const ImageSchema = new Schema(
     productId: { type: String, required: true },
     filename: { type: String, required: true },
     type: { type: String, required: true },
-    timestampo: { type: String, default: moment().format('DD-MMM-YYYY HH:mm:ss') },
+    timestamp: { type: String, default: moment().format('DD-MMM-YYYY HH:mm:ss') },
   },
   { versionKey: false }
 );

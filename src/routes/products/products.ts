@@ -7,13 +7,13 @@ import { userController } from "../../controllers/user";
 const router = Router();
 
 // Route de inicio para mostrar todos los productos
-router.get('/', asyncHandler(productController.getProducts as any));
+router.get('/:id?', asyncHandler(productController.getProducts as any));
 
 // Route  para crear un producto
 router.post('/createProduct', userController.UserCheckAuth, isAdmin, productController.validProduct, asyncHandler(productController.createProduct as any));
 
 // Route para mostrar un producto por su categoria
-router.get('/:category', productController.validCategory, asyncHandler(productController.getProductsByCategory as any));
+router.get('/:categoryId', productController.validCategory, asyncHandler(productController.getProductsByCategory as any));
 
 // Route para editar un producto por su id
 router.patch('/:id?', userController.UserCheckAuth, isAdmin, productController.validId, productController.validProductUpdate, asyncHandler(productController.updateProduct));

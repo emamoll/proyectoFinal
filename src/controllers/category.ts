@@ -49,11 +49,12 @@ class CategoryController {
   async updateCategory(req: Request, res: Response, next: NextFunction) {
     try {
       const id = req.params.id;
-      const updateCategory = await categoryAPI.updateCategory(id, req.body);
+      await categoryAPI.updateCategory(id, req.body);
+      const categoryUpdated = await categoryAPI.getCategoryById(id);
 
       res.status(200).json({
         msg: 'Categoria actualizada',
-        data: updateCategory
+        data: categoryUpdated
       });
     } catch (error) {
       res.status(404).json({

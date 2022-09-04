@@ -188,8 +188,8 @@ class ProductController {
   // Funcion para buscar los productos segun la categoria
   async getProductsByCategory(req: Request, res: Response) {
     try {
-      const { category } = req.params;
-      const products = await productAPI.getProductsByCategory(category);
+      const { categoryId } = req.params;
+      const products = await productAPI.getProductsByCategory(categoryId);
 
       if (products.length < 1) {
         return res.status(404).json({

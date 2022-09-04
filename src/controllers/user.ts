@@ -12,13 +12,6 @@ interface RequestUser extends Request {
 };
 
 class UserController {
-  // Funcion para el get de login
-  async getLogin(req: Request, res: Response) {
-    res.status(200).json({
-      msg: 'Ingrese su email y contrasenia para iniciar sesion'
-    });
-  };
-
   // Funcion para loguear un usuario
   async login(req: Request, res: Response) {
     try {
@@ -32,17 +25,10 @@ class UserController {
       });
 
     } catch (error: any) {
-      res.status(400).json({
+      res.status(401).json({
         msg: error.message
       });
     };
-  };
-
-  // Funcion para el get de signup
-  async getSignup(req: Request, res: Response) {
-    res.status(200).json({
-      msg: 'Complete los campos para registrarse'
-    });
   };
 
   // Funcion para registrar un usuario
