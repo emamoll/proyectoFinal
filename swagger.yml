@@ -728,7 +728,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/signedData'
         400:
-          description: Bad Request
+          description: Error en el registro
           content:
             application/json:
               schema:
@@ -754,7 +754,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/cartData'
         400:
-          description: Bad Request
+          description: Error al buscar el carrito
           content:
             application/json:
               schema:
@@ -786,7 +786,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/cartData'
         400:
-          description: Bad Request
+          description: Error al agregar un producto nuevo al carrito
           content:
             application/json:
               schema:
@@ -818,7 +818,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/cartData'
         400:
-          description: Bad Request
+          description: Error al eliminar un producto nuevo del carrito
           content:
             application/json:
               schema:
@@ -842,7 +842,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/emptyCart'
         400:
-          description: Bad Request
+          description: Error al vaciar el carrito
           content:
             application/json:
               schema:
@@ -866,7 +866,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/orderData'
         400:
-          description: Bad Request
+          description: Error al confirmar el carrito
           content:
             application/json:
               schema:
@@ -892,7 +892,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/categoryArray'
         400:
-          description: Bad Request
+          description: Error al buscar las categorias
           content:
             application/json:
               schema:
@@ -923,7 +923,7 @@ paths:
                 type: object
                 $ref: '#/components/schemas/categoryData'
         400:
-          description: Bad Request
+          description: Error al crear la categoria
           content:
             application/json:
               schema:
@@ -954,7 +954,7 @@ paths:
                 type: object
                 $ref: '#/components/schemas/categoryArray'
         400:
-          description: Bad Request
+          description: Error al buscar la categoria
           content:
             application/json:
               schema:
@@ -991,7 +991,7 @@ paths:
                 type: object
                 $ref: '#/components/schemas/categoryUpdated'
         400:
-          description: Bad Request
+          description: Error al editar la categoria
           content:
             application/json:
               schema:
@@ -1026,7 +1026,7 @@ paths:
                 example: 
                   msg: Categoria eliminado
         400:
-          description: Bad Request
+          description: Error al eliminar la categoria
           content:
             application/json:
               schema:
@@ -1057,7 +1057,7 @@ paths:
                 type: object
                 $ref: '#/components/schemas/imageData'
         400:
-          description: Bad Request
+          description: Error al subir la imagen
           content:
             application/json:
               schema:
@@ -1083,7 +1083,7 @@ paths:
                 type: object
                 $ref: '#/components/schemas/imageGet'
         400:
-          description: Bad Request
+          description: Error al buscar la imagen
           content:
             application/json:
               schema:
@@ -1118,7 +1118,7 @@ paths:
                 example: 
                   msg: Imagen eliminada
         400:
-          description: Bad Request
+          description: Error al eliminar la imagen
           content:
             application/json:
               schema:
@@ -1144,7 +1144,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/orderData'
         400:
-          description: Bad Request
+          description: Error al buscar las ordenes
           content:
             application/json:
               schema:
@@ -1174,7 +1174,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/orderGet'
         400:
-          description: Bad Request
+          description: Error al buscar la orden
           content:
             application/json:
               schema:
@@ -1204,7 +1204,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/orderSend'
         400:
-          description: Bad Request
+          description: Error al enviar la orden
           content:
             application/json:
               schema:
@@ -1261,7 +1261,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/productData'
         400:
-          description: Bad Request
+          description: Error al buscar el o los productos
           content:
             application/json:
               schema:
@@ -1291,7 +1291,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/newProductData'
         400:
-          description: Bad Request
+          description: Error al crear el producto
           content:
             application/json:
               schema:
@@ -1318,7 +1318,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/productData'
         400:
-          description: Bad Request
+          description: Error al buscar los productos segun la categoria
           content:
             application/json:
               schema:
@@ -1354,7 +1354,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/productUpdated'
         400:
-          description: Bad Request
+          description: Error al editar el producto
           content:
             application/json:
               schema:
@@ -1389,7 +1389,7 @@ paths:
                 example: 
                   msg: Producto eliminada
         400:
-          description: Bad Request
+          description: Error al eliminar el producto
           content:
             application/json:
               schema:
@@ -1445,7 +1445,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/usersData'
         400:
-          description: Error al buscar los usuarios
+          description: Error al buscar el usuario
           content:
             application/json:
               schema:
@@ -1480,7 +1480,7 @@ paths:
                 example: 
                   msg: Usuario eliminado
         400:
-          description: Error al buscar los usuarios
+          description: Error al eliminar el usuario
           content:
             application/json:
               schema:
